@@ -1,0 +1,68 @@
+# .gitignore for aguacate
+
+# --- OS ---
+.DS_Store
+
+# --- Gradle / Build ---
+.gradle/
+**/build/
+/build/
+output.json
+
+# --- Android / Native ---
+/local.properties
+/.cxx/
+/.externalNativeBuild/
+app/build/
+*.apk
+*.ap_*
+*.dex
+*.class
+
+# --- Kotlin / IDE caches ---
+.kotlin/
+
+# --- Keystores / Signing ---
+*.keystore
+*.jks
+keystore.properties
+signing.properties
+
+# --- IDEs / Editors ---
+.idea/
+*.iml
+.vscode/
+
+# --- Node / JS ---
+node_modules/
+package-lock.json
+
+# --- Test / Debug / Reports ---
+captures/
+# Android test results
+*.ec
+*.hprof
+
+# --- Misc / Temporary ---
+*.log
+*.orig
+*.bak
+*.txt
+
+# --- Project-specific ---
+/amethyst
+/pocAndroidbak*
+/test
+/ai
+/events
+/deduplication
+/state
+/nostr_TODO.md
+/nostr_reference
+*.scp
+/TODO.md
+/ref
+/reference
+/screenshots
+
+# End of file
