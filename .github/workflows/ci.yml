@@ -12,28 +12,6 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
-      - name: Install prerequisites
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y unzip curl
-
-      - name: Install Android SDK command-line tools
-        env:
-          ANDROID_SDK_ROOT: ${{ github.workspace }}/android-sdk
-        run: |
-          mkdir -p $ANDROID_SDK_ROOT/cmdline-tools
-          curl -sSfL "https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip" -o /tmp/cmdline.zip
-          unzip -q /tmp/cmdline.zip -d /tmp/cmdline
-          mkdir -p $ANDROID_SDK_ROOT/cmdline-tools/latest
-          mv /tmp/cmdline/cmdline-tools/* $ANDROID_SDK_ROOT/cmdline-tools/latest/
-          export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
-          yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT --licenses
-          sdkmanager --sdk_root=$ANDROID_SDK_ROOT "platform-tools" "platforms;android-34" "build-tools;34.0.0"
-
-      - name: Add Android SDK to PATH
-        run: |
-          echo "ANDROID_SDK_ROOT=${{ github.workspace }}/android-sdk" >> $GITHUB_ENV
-          echo "PATH=${{ github.workspace }}/android-sdk/cmdline-tools/latest/bin:${{ github.workspace }}/android-sdk/platform-tools:$PATH" >> $GITHUB_ENV
 
       - name: Run tests (Node JS) and Android assemble
         run: |
