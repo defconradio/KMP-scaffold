@@ -7,7 +7,7 @@ plugins {
 kotlin {
     androidTarget()
     jvm() // Add JVM target
-    jvmToolchain(17)
+    jvmToolchain(21)
     iosX64()
     iosArm64()
     iosSimulatorArm64()
