@@ -11,7 +11,6 @@ kotlin {
     iosSimulatorArm64()
 
     js(IR) {
-        browser()
         nodejs()
     }
 

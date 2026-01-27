@@ -37,11 +37,5 @@ jobs:
 
       - name: Run tests (Node JS) and Android assemble
         run: |
-          # Run Node-only JS tests to avoid flaky browser dependencies in CI
-          ./gradlew :shared:jsNodeTest :shared:check -x :shared:jsBrowserTest :androidApp:assembleDebug --no-daemon -Porg.gradle.jvmargs="-Xmx3g"
-
-      - name: Install Chromium for JS browser tests
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y chromium-browser
-          echo "CHROME_BIN=/usr/bin/chromium-browser" >> $GITHUB_ENV
+          # Run Node-only JS tests
+          ./gradlew :shared:jsNodeTest :shared:check :androidApp:assembleDebug --no-daemon -Porg.gradle.jvmargs="-Xmx3g"
