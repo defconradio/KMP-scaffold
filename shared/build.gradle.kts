@@ -35,6 +35,7 @@ kotlin {
              dependencies {
                 implementation(libs.ktor.client.cio)
                 implementation(libs.androidx.lifecycle.viewmodel)
+                implementation(libs.androidx.datastore.preferences) // Added DataStore to platform specific
              }
         }
         val iosMain by creating {
@@ -42,6 +43,7 @@ kotlin {
             dependencies {
                 implementation(libs.ktor.client.darwin)
                 implementation(libs.androidx.lifecycle.viewmodel)
+                implementation(libs.androidx.datastore.preferences) // Added DataStore to platform specific
             }
         }
         val iosTest by creating {
@@ -65,6 +67,7 @@ kotlin {
             dependencies {
                 implementation(libs.ktor.client.cio)
                 implementation(libs.androidx.lifecycle.viewmodel)
+                implementation(libs.androidx.datastore.preferences) // Added DataStore to platform specific
             }
         }
         val jvmTest by getting
