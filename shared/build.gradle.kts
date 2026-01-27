@@ -1,10 +1,12 @@
 plugins {
     id("org.jetbrains.kotlin.multiplatform")
     id("com.android.library")
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
     androidTarget()
+    jvm() // Add JVM target
     jvmToolchain(17)
     iosX64()
     iosArm64()
@@ -18,16 +20,29 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
+                implementation(libs.kotlinx.coroutines.core)
+                implementation(libs.kotlinx.serialization.json)
+                implementation(libs.ktor.client.core)
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
+                implementation(libs.kotlinx.coroutines.test)
             }
         }
-        val androidMain by getting
+        val androidMain by getting {
+             dependencies {
+                implementation(libs.ktor.client.cio)
+                implementation(libs.androidx.lifecycle.viewmodel)
+             }
+        }
         val iosMain by creating {
             dependsOn(commonMain)
+            dependencies {
+                implementation(libs.ktor.client.darwin)
+                implementation(libs.androidx.lifecycle.viewmodel)
+            }
         }
         val iosTest by creating {
             dependsOn(commonTest)
@@ -39,8 +54,20 @@ kotlin {
         val iosArm64Test by getting { dependsOn(iosTest) }
         val iosSimulatorArm64Test by getting { dependsOn(iosTest) }
 
-        val jsMain by getting
+        val jsMain by getting {
+            dependencies {
+                implementation(libs.ktor.client.js)
+            }
+        }
         val jsTest by getting
+
+        val jvmMain by getting {
+            dependencies {
+                implementation(libs.ktor.client.cio)
+                implementation(libs.androidx.lifecycle.viewmodel)
+            }
+        }
+        val jvmTest by getting
     }
 }
 
