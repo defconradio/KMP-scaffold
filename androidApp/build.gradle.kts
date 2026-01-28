@@ -79,6 +79,14 @@ dependencies {
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.common)
 
+    // Dependency Injection (Koin)
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+
+    // Logging
+    implementation(libs.napier)
+    
+
     // Data Persistence
     implementation(libs.androidx.datastore.preferences)
 

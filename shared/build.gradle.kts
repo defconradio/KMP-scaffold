@@ -23,12 +23,15 @@ kotlin {
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.kotlinx.serialization.json)
                 implementation(libs.ktor.client.core)
+                implementation(libs.koin.core) // Add Koin Core to commonMain
+                implementation(libs.napier) // Add Napier Logger
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(libs.kotlinx.coroutines.test)
+                implementation(libs.koin.test) // Add Koin Test
             }
         }
         val androidMain by getting {
