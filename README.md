@@ -1,5 +1,7 @@
 # Kotlin Multiplatform (KMP) MVVM Scaffold
 
+![CI](https://github.com/defconradio/KMP-scaffold/actions/workflows/ci.yml/badge.svg)
+
 A production-ready Kotlin Multiplatform scaffold designed for scalability, featuring **Clean Architecture**, **MVVM**, and modern KMP libraries.
 
 ## 🚀 Key Features
