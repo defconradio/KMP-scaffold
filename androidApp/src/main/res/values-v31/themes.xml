@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Aguacate.Launcher" parent="Theme.Aguacate">
+        <!-- Splash screen background color -->
+        <item name="android:windowSplashScreenBackground">#FFCB7E</item>
+        <!-- The icon to display in the center -->
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/in_launcher_padded</item>
+        <!-- Background color behind the icon (if transparent) -->
+        <item name="android:windowSplashScreenIconBackgroundColor">#FFCB7E</item>
+    </style>
+</resources>
