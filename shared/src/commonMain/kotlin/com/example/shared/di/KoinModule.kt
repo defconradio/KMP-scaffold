@@ -6,7 +6,7 @@ import org.koin.dsl.module
 
 fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
     appDeclaration()
-    modules(appModule)
+    modules(appModule, networkModule)
 }
 
 // Example module - define your shared dependencies here

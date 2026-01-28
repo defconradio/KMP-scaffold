@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.compose) // Add Kotlin Compose compiler plugin
+    alias(libs.plugins.jetbrains.compose) // Apply plugin in Shared
 }
 
 kotlin {
@@ -23,8 +25,12 @@ kotlin {
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.kotlinx.serialization.json)
                 implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.content.negotiation)
+                implementation(libs.ktor.serialization.kotlinx.json)
                 implementation(libs.koin.core) // Add Koin Core to commonMain
                 implementation(libs.napier) // Add Napier Logger
+                implementation(compose.runtime) // Add Compose Runtime
+                implementation(compose.components.resources) // Add Resources component
             }
         }
         val commonTest by getting {

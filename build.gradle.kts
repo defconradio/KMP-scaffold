@@ -7,4 +7,5 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.graalvm.native.image) apply false
+    alias(libs.plugins.jetbrains.compose) apply false
 }

@@ -1,0 +1,4 @@
+<resources>
+    <string name="shared_greeting">Hello from Shared Resources!</string>
+    <string name="app_name">My KMP App</string>
+</resources>
