@@ -26,6 +26,7 @@ composeMultiplatform = "1.7.0" # JetBrains Compose plugin version
 jna = "5.17.0"
 materialIconsExtended = "1.7.8"
 navigationCompose = "2.9.0"
+jetbrainsNavigation = "2.8.0-alpha10"
 hilt = "2.55"
 androidxHilt = "1.3.0-alpha01"
 koin = "4.0.0"
@@ -36,7 +37,8 @@ androidx-biometric = { module = "androidx.biometric:biometric", version.ref = "b
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
-androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+androidx-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "jetbrainsNavigation" }
+# androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "lifecycleViewModel" } # Add Lifecycle ViewModel lib
 androidx-runtime = { group = "androidx.compose.runtime", name = "runtime" }
 androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" } # Also let BOM control this

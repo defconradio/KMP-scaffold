@@ -14,10 +14,6 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
-    js(IR) {
-        nodejs()
-    }
-
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -30,7 +26,11 @@ kotlin {
                 implementation(libs.koin.core) // Add Koin Core to commonMain
                 implementation(libs.napier) // Add Napier Logger
                 implementation(compose.runtime) // Add Compose Runtime
+                implementation(compose.foundation) // Add Compose Foundation
+                implementation(compose.material3) // Add Compose Material 3
+                implementation(compose.ui) // Add Compose UI
                 implementation(compose.components.resources) // Add Resources component
+                implementation(libs.androidx.navigation.compose) // Add Compose Navigation
             }
         }
         val commonTest by getting {
@@ -64,13 +64,6 @@ kotlin {
         val iosX64Test by getting { dependsOn(iosTest) }
         val iosArm64Test by getting { dependsOn(iosTest) }
         val iosSimulatorArm64Test by getting { dependsOn(iosTest) }
-
-        val jsMain by getting {
-            dependencies {
-                implementation(libs.ktor.client.js)
-            }
-        }
-        val jsTest by getting
 
         val jvmMain by getting {
             dependencies {
