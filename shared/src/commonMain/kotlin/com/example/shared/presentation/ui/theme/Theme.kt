@@ -23,11 +23,12 @@ private val DarkColorPalette = darkColorScheme(
 fun AppTheme(
     content: @Composable () -> Unit
 ) {
-    SystemBarColoring()
-
     MaterialTheme(
         colorScheme = DarkColorPalette,
-        content = content
+        content = {
+            SystemBarColoring()
+            content()
+        }
     )
 }
 

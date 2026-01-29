@@ -8,3 +8,4 @@
 
 
 ./gradlew :shared:wasmJsBrowserTest --no-daemon
+./gradlew :androidApp:assembleDebug

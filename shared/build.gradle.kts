@@ -61,6 +61,8 @@ kotlin {
                 implementation(libs.ktor.client.cio)
                 implementation(libs.androidx.lifecycle.viewmodel)
                 implementation(libs.androidx.datastore.preferences) // Added DataStore to platform specific
+                implementation(libs.androidx.core.ktx) // Add Core KTX for WindowCompat
+                implementation(libs.androidx.activity.compose) // Ensure activity compose is available
              }
         }
         val iosMain by creating {
