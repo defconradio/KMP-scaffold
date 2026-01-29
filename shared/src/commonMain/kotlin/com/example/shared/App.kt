@@ -46,7 +46,7 @@ fun App() {
                             selected = currentDestination?.route == screen.route,
                             onClick = {
                                 navController.navigate(screen.route) {
-                                    popUpTo(navController.graph.findStartDestination().id) {
+                                    popUpTo(navController.graph.findStartDestination().route!!) {
                                         saveState = true
                                     }
                                     launchSingleTop = true

@@ -8,11 +8,12 @@ A production-ready Kotlin Multiplatform scaffold designed for scalability, featu
 
 *   **Architecture:** Clean Architecture + MVVM (Model-View-ViewModel)
 *   **Dependency Injection:** [Koin](https://insert-koin.io/) (v4.0.0)
-*   **Networking:** [Ktor](https://ktor.io/) (v2.3.9) with ContentNegotiation & Serialization
+*   **Networking:** [Ktor](https://ktor.io/) (v3.0.0-rc-1) with ContentNegotiation & Serialization
 *   **Logging:** [Napier](https://github.com/AAkira/Napier) (v2.7.1)
 *   **Resources:** [JetBrains Compose Multiplatform Resources](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-resources.html) (Shared Strings, Images, Fonts)
 *   **Persistence:** [AndroidX DataStore](https://developer.android.com/topic/libraries/architecture/datastore) (Preferences)
-*   **Targets:** Android, iOS, JVM (Desktop/Server), JavaScript (Node.js/Browser)
+*   **Navigation:** [JetBrains Compose Navigation](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation.html)
+*   **Targets:** Android, iOS, JVM (Desktop), Wasm (Web)
 
 ## 📂 Project Structure
 
@@ -58,6 +59,11 @@ shared/src/commonMain/composeResources/
 If you add new images or strings, run this to regenerate the `Res` class:
 ```bash
 ./gradlew :shared:generateComposeResClass
+```
+
+### 4. Run Web App (Wasm)
+```bash
+./gradlew :shared:wasmJsBrowserDevelopmentRun
 ```
 
 ## 💡 Usage Examples

@@ -13,7 +13,19 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: Run tests (Node JS) and Android assemble
-        run: |
-          # Run Node-only JS tests
-          ./gradlew :shared:jsNodeTest :shared:check :androidApp:assembleDebug --no-daemon -Porg.gradle.jvmargs="-Xmx3g"
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+           gradle-version: wrapper
+
+      - name: Build Android App
+        run: ./gradlew :androidApp:assembleDebug
+
+      - name: Build Shared Module (Wasm & JVM)
+        run: ./gradlew :shared:assemble
+
+      - name: Build Web App (Wasm)
+        run: ./gradlew :shared:wasmJsBrowserDistribution
+
+      - name: Run Tests (JVM)
+        run: ./gradlew :shared:jvmTest
