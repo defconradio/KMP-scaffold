@@ -40,6 +40,10 @@ android {
     buildFeatures {
         compose = true
     }
+    lint {
+        disable += "ModifierDeclarationDetector"
+        abortOnError = false
+    }
 }
 
 

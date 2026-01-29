@@ -25,7 +25,14 @@ jobs:
         run: ./gradlew :shared:assemble
 
       - name: Build Web App (Wasm)
-        run: ./gradlew :shared:wasmJsBrowserDistribution
+        run: ./gradlew :composeApp:wasmJsBrowserDistribution
 
       - name: Run Tests (JVM)
         run: ./gradlew :shared:jvmTest
+
+      - name: Run Tests (Wasm)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser
+          export CHROME_BIN=/usr/bin/chromium-browser
+          ./gradlew :shared:wasmJsBrowserTest

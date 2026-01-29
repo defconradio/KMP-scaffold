@@ -30,4 +30,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "aguacate"
-include(":shared", ":androidApp")
+include(":shared", ":androidApp", ":composeApp")
