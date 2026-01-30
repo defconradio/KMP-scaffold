@@ -52,15 +52,17 @@ shared/src/commonMain/composeResources/
 
 ### 2. Setup (Linux)
 You need to set the `CHROME_BIN` environment variable for the `wasmJs` tests to find the Chromium binary.
+install: 
+`sudo apt update && sudo apt install -y chromium-browser`
 
-Add this line to your `~/.bashrc` (or `~/.zshrc`) to make it permanent:
+Add to your `~/.bashrc` (or `~/.zshrc`) to make it permanent:
 ```bash
-echo 'export CHROME_BIN=$(which chromium || which chromium-browser)' >> ~/.bashrc
-
+echo 'export CHROME_BIN=$(which chromium-browser)' >> ~/.bashrc
+source ~/.bashrc
 ./gradlew kotlinUpgradeYarnLock && ./gradlew clean build
 ```
 otherwise build with 
-`export CHROME_BIN=$(which chromium) && ./gradlew kotlinUpgradeYarnLock && ./gradlew clean build` 
+`export CHROME_BIN=$(which chromium-browser) && ./gradlew kotlinUpgradeYarnLock && ./gradlew clean build` 
 
 or build without wasm
 `./gradlew build -x wasmJsBrowserTest -x wasmJsBrowserDistribution`
