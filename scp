@@ -9,3 +9,4 @@
 
 ./gradlew :shared:wasmJsBrowserTest --no-daemon
 ./gradlew :androidApp:assembleDebug
+./gradlew build -x wasmJsBrowserTest -x wasmJsBrowserDistribution

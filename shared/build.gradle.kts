@@ -152,3 +152,7 @@ tasks.register("createXCFramework") {
         }
     }
 }
+
+tasks.named("wasmJsBrowserTest") {
+    dependsOn(":composeApp:wasmJsTestTestDevelopmentExecutableCompileSync")
+}

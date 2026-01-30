@@ -50,18 +50,35 @@ shared/src/commonMain/composeResources/
 ./gradlew :shared:build
 ```
 
-### 2. Run Android App
+### 2. Setup (Linux)
+You need to set the `CHROME_BIN` environment variable for the `wasmJs` tests to find the Chromium binary.
+
+Add this line to your `~/.bashrc` (or `~/.zshrc`) to make it permanent:
+```bash
+echo 'export CHROME_BIN=$(which chromium || which chromium-browser)' >> ~/.bashrc
+
+./gradlew kotlinUpgradeYarnLock && ./gradlew clean build
+```
+otherwise build with 
+`export CHROME_BIN=$(which chromium) && ./gradlew kotlinUpgradeYarnLock && ./gradlew clean build` 
+
+or build without wasm
+`./gradlew build -x wasmJsBrowserTest -x wasmJsBrowserDistribution`
+
+## 📱 Running the Apps
+
+### 1. Run Android App
 ```bash
 ./gradlew :androidApp:installDebug
 ```
 
-### 3. Generate Resources
+### 2. Generate Resources
 If you add new images or strings, run this to regenerate the `Res` class:
 ```bash
 ./gradlew :shared:generateComposeResClass
 ```
 
-### 4. Run Web App (Wasm)
+### 3. Run Web App (Wasm)
 ```bash
 ./gradlew :shared:wasmJsBrowserDevelopmentRun
 ```

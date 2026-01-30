@@ -46,8 +46,12 @@ fun App() {
                             selected = currentDestination?.route == screen.route,
                             onClick = {
                                 navController.navigate(screen.route) {
-                                    popUpTo(navController.graph.findStartDestination().route!!) {
-                                        saveState = true
+                                    // Use route instead of id for KMP compatibility
+                                    val startRoute = navController.graph.findStartDestination().route
+                                    startRoute?.let { route ->
+                                        popUpTo(route) {
+                                            saveState = true
+                                        }
                                     }
                                     launchSingleTop = true
                                     restoreState = true
