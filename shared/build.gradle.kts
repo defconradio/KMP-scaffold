@@ -14,9 +14,8 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
-    @OptIn(org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl::class)
+    @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
     wasmJs {
-        moduleName = "composeApp"
         browser {
             testTask {
                 useKarma {
@@ -44,6 +43,8 @@ kotlin {
                 implementation(compose.runtime) // Add Compose Runtime
                 implementation(compose.foundation) // Add Compose Foundation
                 implementation(compose.material3) // Add Compose Material 3
+                implementation(compose.material) // Add Compose Material for Icons
+                implementation(compose.materialIconsExtended) // Add Extended Icons
                 implementation(compose.ui) // Add Compose UI
                 implementation(compose.components.resources) // Add Resources component
                 implementation(libs.androidx.navigation.compose) // Add Compose Navigation
@@ -146,7 +147,7 @@ tasks.register("createXCFramework") {
         cmd.addAll(listOf("-output", output.absolutePath))
 
         logger.lifecycle("Creating XCFramework: ${output.absolutePath}")
-        val result = project.exec { commandLine = cmd }
+        val result = providers.exec { commandLine = cmd }.result.get()
         if (result.exitValue != 0) {
             throw GradleException("xcodebuild failed with exit code ${result.exitValue}")
         }

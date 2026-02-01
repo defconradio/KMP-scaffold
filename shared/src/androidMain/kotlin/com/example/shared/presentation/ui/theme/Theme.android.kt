@@ -22,7 +22,9 @@ actual fun SystemBarColoring() {
 
         window?.let {
              SideEffect {
+                @Suppress("DEPRECATION")
                 it.statusBarColor = color
+                @Suppress("DEPRECATION")
                 it.navigationBarColor = color // This sets the bottom system tray color
                 WindowCompat.getInsetsController(it, view).isAppearanceLightStatusBars = false
                 WindowCompat.getInsetsController(it, view).isAppearanceLightNavigationBars = false

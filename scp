@@ -1,12 +1,24 @@
-./gradlew kotlinUpgradeYarnLock
-./gradlew :shared:wasmJsBrowserTest
+git branch --show-current
+git status
+git add .
+git commit -m "Implement iOS support: WebView, DataStore, DI setup"
+git push -u origin feature/ios-support
 
-./gradlew :composeApp:wasmJsBrowserDevelopmentRun
-./gradlew :composeApp:wasmJsBrowserDevelopmentRun --dry-run
+
+git checkout -b branchname
+git push -u origin branchname
+
+
+git checkout first_graphs && git merge master
+
 
 ./gradlew clean build
 
+./gradlew :composeApp:wasmJsBrowserDevelopmentRun
 
-./gradlew :shared:wasmJsBrowserTest --no-daemon
-./gradlew :androidApp:assembleDebug
-./gradlew build -x wasmJsBrowserTest -x wasmJsBrowserDistribution
+./gradlew :composeApp:wasmJsBrowserDevelopmentDistribution --rerun-tasks
+python3 test_enviroment/serve_wasm.py 
+
+./gradlew composeApp:wasmJsBrowserDistribution
+python3 test_enviroment/serve_wasm.py
+
