@@ -22,3 +22,4 @@ python3 test_enviroment/serve_wasm.py
 ./gradlew composeApp:wasmJsBrowserDistribution
 python3 test_enviroment/serve_wasm.py
 
+./gradlew clean --max-workers=8 -Dorg.gradle.jvmargs="-Xmx6g" && ./iosApp/kmp-ios-build.sh

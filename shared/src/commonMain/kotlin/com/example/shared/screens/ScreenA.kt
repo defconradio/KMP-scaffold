@@ -8,17 +8,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 
 @Composable
-fun ScreenA(navController: NavController) {
+fun ScreenA(onNavigate: (com.example.shared.RootScreen) -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text("This is Screen A")
-        Button(onClick = { navController.navigate("screenB") }) {
+        Button(onClick = { onNavigate(com.example.shared.RootScreen.Trade) }) {
             Text("Go to Screen B")
         }
     }

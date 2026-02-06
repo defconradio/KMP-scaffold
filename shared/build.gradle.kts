@@ -154,6 +154,30 @@ tasks.register("createXCFramework") {
     }
 }
 
+// --- KMP iOS XCFramework export for Xcode integration ---
+tasks.register("syncFramework") {
+    group = "xcode"
+    description = "Builds and copies the iOS XCFramework to shared/build/XCFrameworks/release for Xcode."
+    dependsOn(
+        "linkReleaseFrameworkIosArm64",
+        "linkReleaseFrameworkIosX64",
+        "linkReleaseFrameworkIosSimulatorArm64"
+    )
+    doLast {
+        val buildDir = layout.buildDirectory.asFile.get()
+        val xcDir = file("${buildDir}/XCFrameworks/release")
+        xcDir.mkdirs()
+        val frameworks = listOf(
+            "${buildDir}/bin/iosArm64/releaseFramework/Shared.framework",
+            "${buildDir}/bin/iosSimulatorArm64/releaseFramework/Shared.framework"
+        )
+        val cmd = mutableListOf("xcodebuild", "-create-xcframework")
+        frameworks.forEach { cmd.addAll(listOf("-framework", it)) }
+        cmd.addAll(listOf("-output", "${xcDir}/Shared.xcframework"))
+        exec { commandLine = cmd }
+    }
+}
+
 tasks.named("wasmJsBrowserTest") {
     dependsOn(":composeApp:wasmJsTestTestDevelopmentExecutableCompileSync")
 }

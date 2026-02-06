@@ -11,22 +11,27 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.example.shared.presentation.navigation.Screen
 import com.example.shared.presentation.ui.theme.AppTheme
 import com.example.shared.screens.ScreenA
 import com.example.shared.screens.ScreenB
 import com.example.shared.screens.ScreenC
 
+sealed class RootScreen {
+    object Home : RootScreen()
+    object Trade : RootScreen()
+    object Profile : RootScreen()
+    object Settings : RootScreen()
+}
+
 @Composable
 fun App() {
     AppTheme {
-        val navController = rememberNavController()
+        var currentScreen by remember { mutableStateOf<RootScreen>(RootScreen.Home) }
         Scaffold(
             containerColor = MaterialTheme.colorScheme.background,
             bottomBar = {
@@ -34,43 +39,30 @@ fun App() {
                     containerColor = MaterialTheme.colorScheme.surface,
                     contentColor = MaterialTheme.colorScheme.onSurface
                 ) {
-                    val navBackStackEntry by navController.currentBackStackEntryAsState()
-                    val currentDestination = navBackStackEntry?.destination
-
-                    val items = listOf(Screen.Home, Screen.Trade, Screen.Profile, Screen.Settings)
-
-                    items.forEach { screen ->
+                    val items = listOf(
+                        Screen.Home to RootScreen.Home,
+                        Screen.Trade to RootScreen.Trade,
+                        Screen.Profile to RootScreen.Profile,
+                        Screen.Settings to RootScreen.Settings
+                    )
+                    items.forEach { (screen, rootScreen) ->
                         NavigationBarItem(
                             icon = { Icon(screen.icon, contentDescription = screen.title) },
                             label = { Text(screen.title) },
-                            selected = currentDestination?.route == screen.route,
-                            onClick = {
-                                navController.navigate(screen.route) {
-                                    // Use route instead of id for KMP compatibility
-                                    val startRoute = navController.graph.findStartDestination().route
-                                    startRoute?.let { route ->
-                                        popUpTo(route) {
-                                            saveState = true
-                                        }
-                                    }
-                                    launchSingleTop = true
-                                    restoreState = true
-                                }
-                            }
+                            selected = currentScreen == rootScreen,
+                            onClick = { currentScreen = rootScreen }
                         )
                     }
                 }
             }
         ) { paddingValues ->
-            NavHost(
-                navController = navController,
-                startDestination = Screen.Home.route,
-                modifier = Modifier.padding(paddingValues)
-            ) {
-                composable(Screen.Home.route) { ScreenA(navController) }
-                composable(Screen.Trade.route) { ScreenB(navController) }
-                composable(Screen.Profile.route) { ScreenC(navController) }
-                composable(Screen.Settings.route) { ScreenA(navController) } // Reusing ScreenA for settings for now
+            Column(modifier = Modifier.padding(paddingValues).fillMaxSize()) {
+                when (currentScreen) {
+                    RootScreen.Home -> ScreenA(onNavigate = { currentScreen = it })
+                    RootScreen.Trade -> ScreenB(onNavigate = { currentScreen = it })
+                    RootScreen.Profile -> ScreenC(onNavigate = { currentScreen = it })
+                    RootScreen.Settings -> ScreenA(onNavigate = { currentScreen = it }) // Reuse for now
+                }
             }
         }
     }

@@ -8,22 +8,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 
 @Composable
-fun ScreenC(navController: NavController) {
+fun ScreenC(onNavigate: (com.example.shared.RootScreen) -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text("This is Screen C")
-        Button(onClick = { navController.navigate("screenA") {
-            popUpTo("screenA") { inclusive = true }
-        } }) {
+        Button(onClick = { onNavigate(com.example.shared.RootScreen.Home) }) {
             Text("Go back to Screen A")
         }
-         Button(onClick = { navController.popBackStack() }) {
+        Button(onClick = { onNavigate(com.example.shared.RootScreen.Trade) }) {
             Text("Back")
         }
     }

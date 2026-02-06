@@ -85,6 +85,27 @@ If you add new images or strings, run this to regenerate the `Res` class:
 ./gradlew :shared:wasmJsBrowserDevelopmentRun
 ```
 
+## 🍏 Building and Running the iOS App
+
+To build the iOS target and prepare all required files for Xcode:
+
+1. Open a terminal at the project root.
+2. Make the iOS build script executable (only needed once):
+   ```bash
+   chmod +x iosApp/kmp-ios-build.sh
+   ```
+3. Run the script to build the shared KMP framework for iOS:
+   ```bash
+   ./iosApp/kmp-ios-build.sh
+   ```
+   This will build the shared framework and place it in `shared/build/XCFrameworks/release`.
+
+4. Open `iosApp/iOSApp.xcodeproj` in Xcode.
+5. In Xcode, add the generated `Shared.xcframework` from `shared/build/XCFrameworks/release` to your project (drag it into the Frameworks group or set up a reference).
+6. Build and run the iOS app in Xcode as usual.
+
+If you encounter build errors, ensure you have run the script and that the framework exists in the expected location.
+
 ## 💡 Usage Examples
 
 ### Dependency Injection (Koin)
