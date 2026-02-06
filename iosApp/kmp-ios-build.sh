@@ -9,6 +9,10 @@ set -e
 dir=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 cd "$dir"
 
+# Clean build before building framework
+echo "[KMP] Cleaning build..."
+./gradlew clean --no-daemon
+
 echo "[KMP] Building shared framework for iOS..."
 ./gradlew :shared:syncFramework --no-daemon
 
@@ -19,9 +23,11 @@ if [ ! -d "$FRAMEWORK_DIR" ]; then
   exit 1
 fi
 
-# 3. Copy the framework to iosApp if needed (optional, Xcode can reference directly)
-# cp -R "$FRAMEWORK_DIR/Shared.framework" iosApp/
+# 3. Copy the XCFramework to iosApp/Frameworks for easy Xcode integration
+IOS_FRAMEWORKS_DIR="iosApp/Frameworks"
+mkdir -p "$IOS_FRAMEWORKS_DIR"
+cp -R "$FRAMEWORK_DIR/Shared.xcframework" "$IOS_FRAMEWORKS_DIR/"
 
 # 4. Print success message
-echo "[KMP] iOS framework is ready at $FRAMEWORK_DIR."
-echo "[KMP] Open iosApp/iOSApp.xcodeproj in Xcode, add the framework from $FRAMEWORK_DIR, and build/run."
+echo "[KMP] iOS framework is ready at $IOS_FRAMEWORKS_DIR/Shared.xcframework."
+echo "[KMP] Open iosApp/iOSApp.xcodeproj in Xcode, add the framework from $IOS_FRAMEWORKS_DIR, and build/run."
