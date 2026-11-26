@@ -33,15 +33,15 @@ shared/src/commonMain/composeResources/
 
 ## 🛠️ Tech Stack & Configuration
 
-*   **Kotlin:** 2.1.21
+*   **Kotlin:** 2.1.20
 *   **Java:** JDK 21 (Toolchain enforced)
-*   **Build System:** Gradle + Version Catalog (`libs.versions.toml`)
+*   **Build System:** Gradle + Version Catalog (`libs.versions.toml`) + Default KMP Hierarchy Template
 
 ### Libraries Included:
-1.  **Koin:** Pre-configured `initKoin` function and `networkModule` for HTTP client injection.
-2.  **Ktor Client:** Configured with JSON serialization (Kotlinx.serialization) and Timeouts.
-3.  **Napier:** initialized in `AndroidApp.kt` and `KoinModule.kt` for cross-platform logging.
-4.  **Compose Resources:** Type-safe access to resources via `Res.string.*` and `Res.drawable.*`.
+1.  **Koin:** Pre-configured `initKoin`, `platformModule`, and `networkModule` for cross-platform DI.
+2.  **Ktor Client:** Configured with JSON serialization (`kotlinx.serialization`) and Timeouts.
+3.  **Napier:** Initialized via `initLogger()` on Android, iOS, and Wasm for cross-platform logging.
+4.  **Compose Resources:** Type-safe access to resources via `com.example.shared.resources.Res`.
 
 ## 🏗️ How to Build
 
@@ -82,29 +82,25 @@ If you add new images or strings, run this to regenerate the `Res` class:
 
 ### 3. Run Web App (Wasm)
 ```bash
-./gradlew :shared:wasmJsBrowserDevelopmentRun
+./gradlew :composeApp:wasmJsBrowserDevelopmentRun
 ```
 
 ## 🍏 Building and Running the iOS App
 
-To build the iOS target and prepare all required files for Xcode:
+To build the iOS XCFramework and prepare all required files for Xcode (requires macOS):
 
 1. Open a terminal at the project root.
 2. Make the iOS build script executable (only needed once):
    ```bash
    chmod +x iosApp/kmp-ios-build.sh
    ```
-3. Run the script to build the shared KMP framework for iOS:
+3. Run the script to build the shared KMP XCFramework (`:shared:assembleSharedReleaseXCFramework`):
    ```bash
    ./iosApp/kmp-ios-build.sh
    ```
-   This will build the shared framework and place it in `shared/build/XCFrameworks/release`.
+   This builds `Shared.xcframework` into `shared/build/XCFrameworks/release` and copies it to `iosApp/Frameworks/Shared.xcframework`.
 
-4. Open `iosApp/iOSApp.xcodeproj` in Xcode.
-5. In Xcode, add the generated `Shared.xcframework` from `shared/build/XCFrameworks/release` to your project (drag it into the Frameworks group or set up a reference).
-6. Build and run the iOS app in Xcode as usual.
-
-If you encounter build errors, ensure you have run the script and that the framework exists in the expected location.
+4. Open your Xcode project in `iosApp/`, link `iosApp/Frameworks/Shared.xcframework`, and build/run.
 
 ## 💡 Usage Examples
 

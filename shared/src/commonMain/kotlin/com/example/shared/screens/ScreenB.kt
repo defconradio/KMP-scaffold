@@ -10,17 +10,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun ScreenB(onNavigate: (com.example.shared.RootScreen) -> Unit) {
+fun ScreenB(
+    onNavigateToProfile: () -> Unit,
+    onNavigateBack: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text("This is Screen B")
-        Button(onClick = { onNavigate(com.example.shared.RootScreen.Profile) }) {
+        Button(onClick = onNavigateToProfile) {
             Text("Go to Screen C")
         }
-        Button(onClick = { onNavigate(com.example.shared.RootScreen.Home) }) {
+        Button(onClick = onNavigateBack) {
             Text("Back")
         }
     }

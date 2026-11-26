@@ -6,9 +6,15 @@
 //
 
 import SwiftUI
+import Shared
 
 @main
 struct kmp_scaffoldApp: App {
+    init() {
+        KoinModuleKt.doInitLogger()
+        KoinModuleKt.doInitKoin()
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()

@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		3EA186012F36A32900348D9D /* Shared.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA186002F36A32900348D9D /* Shared.xcframework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		3EA185EF2F36A32800348D9D /* kmp_scaffold.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kmp_scaffold.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EA186002F36A32900348D9D /* Shared.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Shared.xcframework; path = ../Frameworks/Shared.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -23,6 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EA186012F36A32900348D9D /* Shared.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -33,8 +39,17 @@
 			isa = PBXGroup;
 			children = (
 				3EA185F12F36A32800348D9D /* kmp_scaffold */,
+				3EA186022F36A32900348D9D /* Frameworks */,
 				3EA185F02F36A32800348D9D /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		3EA186022F36A32900348D9D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3EA186002F36A32900348D9D /* Shared.xcframework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		3EA185F02F36A32800348D9D /* Products */ = {

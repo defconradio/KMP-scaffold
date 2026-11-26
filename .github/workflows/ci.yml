@@ -27,8 +27,8 @@ jobs:
       - name: Build Web App (Wasm)
         run: ./gradlew :composeApp:wasmJsBrowserDistribution
 
-      - name: Run Tests (JVM)
-        run: ./gradlew :shared:jvmTest
+      - name: Run Tests (JVM & Android)
+        run: ./gradlew :shared:jvmTest :shared:testDebugUnitTest
 
       - name: Run Tests (Wasm)
         run: |

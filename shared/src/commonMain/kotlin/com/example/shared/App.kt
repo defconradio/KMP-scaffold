@@ -1,6 +1,5 @@
 package com.example.shared
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
@@ -11,27 +10,35 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.example.shared.presentation.navigation.Screen
 import com.example.shared.presentation.ui.theme.AppTheme
 import com.example.shared.screens.ScreenA
 import com.example.shared.screens.ScreenB
 import com.example.shared.screens.ScreenC
 
-sealed class RootScreen {
-    object Home : RootScreen()
-    object Trade : RootScreen()
-    object Profile : RootScreen()
-    object Settings : RootScreen()
-}
-
 @Composable
 fun App() {
     AppTheme {
-        var currentScreen by remember { mutableStateOf<RootScreen>(RootScreen.Home) }
+        val navController = rememberNavController()
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val currentRoute = navBackStackEntry?.destination?.route
+
+        fun navigateToTab(screen: Screen) {
+            navController.navigate(screen.route) {
+                popUpTo(navController.graph.findStartDestination().id) {
+                    saveState = true
+                }
+                launchSingleTop = true
+                restoreState = true
+            }
+        }
+
         Scaffold(
             containerColor = MaterialTheme.colorScheme.background,
             bottomBar = {
@@ -39,29 +46,41 @@ fun App() {
                     containerColor = MaterialTheme.colorScheme.surface,
                     contentColor = MaterialTheme.colorScheme.onSurface
                 ) {
-                    val items = listOf(
-                        Screen.Home to RootScreen.Home,
-                        Screen.Trade to RootScreen.Trade,
-                        Screen.Profile to RootScreen.Profile,
-                        Screen.Settings to RootScreen.Settings
-                    )
-                    items.forEach { (screen, rootScreen) ->
+                    Screen.bottomBarItems.forEach { screen ->
                         NavigationBarItem(
                             icon = { Icon(screen.icon, contentDescription = screen.title) },
                             label = { Text(screen.title) },
-                            selected = currentScreen == rootScreen,
-                            onClick = { currentScreen = rootScreen }
+                            selected = currentRoute == screen.route,
+                            onClick = { navigateToTab(screen) }
                         )
                     }
                 }
             }
         ) { paddingValues ->
-            Column(modifier = Modifier.padding(paddingValues).fillMaxSize()) {
-                when (currentScreen) {
-                    RootScreen.Home -> ScreenA(onNavigate = { currentScreen = it })
-                    RootScreen.Trade -> ScreenB(onNavigate = { currentScreen = it })
-                    RootScreen.Profile -> ScreenC(onNavigate = { currentScreen = it })
-                    RootScreen.Settings -> ScreenA(onNavigate = { currentScreen = it }) // Reuse for now
+            NavHost(
+                navController = navController,
+                startDestination = Screen.Home.route,
+                modifier = Modifier
+                    .padding(paddingValues)
+                    .fillMaxSize()
+            ) {
+                composable(Screen.Home.route) {
+                    ScreenA(onNavigateToTrade = { navigateToTab(Screen.Trade) })
+                }
+                composable(Screen.Trade.route) {
+                    ScreenB(
+                        onNavigateToProfile = { navigateToTab(Screen.Profile) },
+                        onNavigateBack = { navigateToTab(Screen.Home) }
+                    )
+                }
+                composable(Screen.Profile.route) {
+                    ScreenC(
+                        onNavigateToHome = { navigateToTab(Screen.Home) },
+                        onNavigateBack = { navigateToTab(Screen.Trade) }
+                    )
+                }
+                composable(Screen.Settings.route) {
+                    ScreenA(onNavigateToTrade = { navigateToTab(Screen.Trade) })
                 }
             }
         }

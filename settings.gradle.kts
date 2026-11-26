@@ -14,6 +14,7 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
+    // PREFER_PROJECT is required by Kotlin/Wasm & JS plugins which register Node/Yarn/Binaryen repositories
     repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
     repositories {
         google {
@@ -24,8 +25,6 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
-        gradlePluginPortal()
-        maven("https://androidx.dev/storage/compose-compiler/repository/")
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 }

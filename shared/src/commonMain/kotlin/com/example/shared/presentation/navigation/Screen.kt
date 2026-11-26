@@ -12,4 +12,8 @@ sealed class Screen(val route: String, val title: String, val icon: ImageVector)
     data object Trade : Screen("trade", "Trade", Icons.Default.ShoppingCart)
     data object Profile : Screen("profile", "Profile", Icons.Default.Person)
     data object Settings : Screen("settings", "Settings", Icons.Default.Settings)
+
+    companion object {
+        val bottomBarItems: List<Screen> = listOf(Home, Trade, Profile, Settings)
+    }
 }
