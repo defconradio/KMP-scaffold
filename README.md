@@ -127,3 +127,7 @@ Text(text = stringResource(Res.string.welcome_message))
 Napier.d("Network request started", tag = "NetworkLayer")
 Napier.e("Error parsing JSON", throwable = error)
 ```
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
