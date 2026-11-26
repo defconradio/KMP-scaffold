@@ -11,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -31,7 +30,7 @@ fun App() {
 
         fun navigateToTab(screen: Screen) {
             navController.navigate(screen.route) {
-                popUpTo(navController.graph.findStartDestination().id) {
+                popUpTo(Screen.Home.route) {
                     saveState = true
                 }
                 launchSingleTop = true

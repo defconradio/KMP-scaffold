@@ -17,11 +17,11 @@ espressoCore = "3.6.1"
 kotlinxCoroutinesAndroid = "1.9.0"
 kotlinxDatetime = "0.6.0"
 kotlinxSerializationJson = "1.7.3"
-ktorClientCore = "3.0.0-rc-1" # Upgrade Ktor for Wasm support
-ktorClientWebsockets = "3.0.0-rc-1"
-ktorClientDarwin = "3.0.0-rc-1" # Add iOS Ktor engine
-ktorClientJs = "3.0.0-rc-1" # Add JS Ktor engine
-ktorClientJava = "3.0.0-rc-1" # Add JVM/Android Ktor engine (optional if CIO is used everywhere)
+ktorClientCore = "3.0.1" # Stable Ktor with Wasm support
+ktorClientWebsockets = "3.0.1"
+ktorClientDarwin = "3.0.1" # Add iOS Ktor engine
+ktorClientJs = "3.0.1" # Add JS Ktor engine
+ktorClientJava = "3.0.1" # Add JVM/Android Ktor engine (optional if CIO is used everywhere)
 lifecycleRuntimeKtx = "2.9.1"
 activityCompose = "1.10.1"
 composeBom = "2025.05.00"
@@ -29,7 +29,7 @@ composeMultiplatform = "1.8.0" # JetBrains Compose plugin version
 jna = "5.17.0"
 materialIconsExtended = "1.7.8"
 navigationCompose = "2.9.0"
-jetbrainsNavigation = "2.8.0-alpha10"
+jetbrainsNavigation = "2.9.0"
 hilt = "2.55"
 androidxHilt = "1.3.0-alpha01"
 koin = "4.0.0"
@@ -68,9 +68,11 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-material3 = { group = "androidx.compose.material3", name = "material3"}
 
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktorClientCore" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktorClientCore" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktorClientDarwin" } # Add iOS Ktor engine
 ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktorClientJs" } # Add JS Ktor engine
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorClientCore" }
 ktor-client-websockets = { module = "io.ktor:ktor-client-websockets", version.ref = "ktorClientWebsockets" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorClientCore" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClientCore" }
@@ -82,6 +84,8 @@ androidx-hilt-common = { group = "androidx.hilt", name = "hilt-common", version.
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
+koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 

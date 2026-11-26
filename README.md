@@ -8,7 +8,7 @@ A production-ready Kotlin Multiplatform scaffold designed for scalability, featu
 
 *   **Architecture:** Clean Architecture + MVVM (Model-View-ViewModel)
 *   **Dependency Injection:** [Koin](https://insert-koin.io/) (v4.0.0)
-*   **Networking:** [Ktor](https://ktor.io/) (v3.0.0-rc-1) with ContentNegotiation & Serialization
+*   **Networking:** [Ktor](https://ktor.io/) (v3.0.1) with ContentNegotiation & Serialization
 *   **Logging:** [Napier](https://github.com/AAkira/Napier) (v2.7.1)
 *   **Resources:** [JetBrains Compose Multiplatform Resources](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-resources.html) (Shared Strings, Images, Fonts)
 *   **Persistence:** [AndroidX DataStore](https://developer.android.com/topic/libraries/architecture/datastore) (Preferences)
@@ -50,22 +50,23 @@ shared/src/commonMain/composeResources/
 ./gradlew :shared:build
 ```
 
-### 2. Setup (Linux)
-You need to set the `CHROME_BIN` environment variable for the `wasmJs` tests to find the Chromium binary.
-install: 
-`sudo apt update && sudo apt install -y chromium-browser`
-
-Add to your `~/.bashrc` (or `~/.zshrc`) to make it permanent:
+### 2. Setup (Linux / Local Workstation)
+- **Android Studio JDK:** `.idea/gradle.xml` and `.idea/misc.xml` are preconfigured to use `jbr-21` (JDK 21).
+- **Local Network / Tor-routed Shells:** If `torsocks` is active in your shell, prefix local Gradle/server commands with `LD_PRELOAD=` or run `source torsocks off` for direct local IP access.
+- **Chromium for Wasm Karma Tests:** Set `CHROME_BIN` so `wasmJsBrowserTest` can launch headless Chromium/Chrome:
 ```bash
-echo 'export CHROME_BIN=$(which chromium-browser)' >> ~/.bashrc
-source ~/.bashrc
-./gradlew kotlinUpgradeYarnLock && ./gradlew clean build
+export CHROME_BIN=$(which chromium || which chromium-browser || which google-chrome)
+./gradlew kotlinUpgradeYarnLock --no-daemon && ./gradlew clean build --no-daemon
 ```
-otherwise build with 
-`export CHROME_BIN=$(which chromium-browser) && ./gradlew kotlinUpgradeYarnLock && ./gradlew clean build` 
-
-or build without wasm
-`./gradlew build -x wasmJsBrowserTest -x wasmJsBrowserDistribution`
+Or run only Wasm tests:
+```bash
+export CHROME_BIN=$(which chromium || which chromium-browser || which google-chrome)
+./gradlew :shared:wasmJsBrowserTest
+```
+Or build without Wasm browser tasks:
+```bash
+./gradlew build -x wasmJsBrowserTest -x wasmJsBrowserDistribution
+```
 
 ## 📱 Running the Apps
 
@@ -73,6 +74,7 @@ or build without wasm
 ```bash
 ./gradlew :androidApp:installDebug
 ```
+Tip: To connect an Android device/emulator to a local backend, forward ports with `adb reverse tcp:8081 tcp:8081`.
 
 ### 2. Generate Resources
 If you add new images or strings, run this to regenerate the `Res` class:
@@ -81,8 +83,19 @@ If you add new images or strings, run this to regenerate the `Res` class:
 ```
 
 ### 3. Run Web App (Wasm)
+Dev server with live reload & source debugging:
 ```bash
 ./gradlew :composeApp:wasmJsBrowserDevelopmentRun
+```
+Or build the distribution and serve locally with Cross-Origin Isolation headers (`COOP`/`COEP`) via `scripts/serve_wasm.py`:
+```bash
+# Development bundle
+./gradlew :composeApp:wasmJsBrowserDevelopmentDistribution
+python3 scripts/serve_wasm.py
+
+# Production bundle
+./gradlew :composeApp:wasmJsBrowserDistribution
+python3 scripts/serve_wasm.py --prod
 ```
 
 ## 🍏 Building and Running the iOS App
